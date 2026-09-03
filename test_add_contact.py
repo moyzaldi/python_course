@@ -14,7 +14,9 @@ class TestAddContact(unittest.TestCase):
         wd = self.wd
         self.open_home_page(wd)
         self.login(wd)
-        self.create_contact(wd)
+        self.create_contact(wd, "Ivan", "Ivanovish", "Ivanov", "ada", "New", "Brave", "address address address",
+                            "+7 11111", "+7 2222", "+7 33333", "email1@ya.ru", "email2@ya.ru", "email3@ya.ru",
+                            "https://dzen.ru/", "27", "December", "30", "December", "2000", "2021")
         self.returt_to_home_page(wd)
         self.logout(wd)
 
@@ -28,11 +30,9 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_name("pass").send_keys("secret")
         wd.find_element_by_xpath("//input[@value='Login']").click()
 
-    def create_contact(self, wd, firstname="Ivan", middlename="Ivanovish", lastname="Ivanov", title="ada", company="New",
-                       nickname="Brave", address="address address address", home_phone="+7 11111", mobile_phone="+7 2222",
-                       work_phone="+7 33333", email1="email1@ya.ru", email2="email2@ya.ru", email3="email3@ya.ru",
-                       homepage="https://dzen.ru/", bday="27", bmonth="December", aday="30", amonth="December",
-                       byear="2000", ayear="2021"):
+    def create_contact(self, wd, firstname, middlename, lastname, title, company, nickname, address, home_phone,
+                       mobile_phone, work_phone, email1, email2, email3, homepage, bday, bmonth, aday, amonth, byear,
+                       ayear):
         # init contact creation
         wd.find_element_by_link_text("add new").click()
         # fill contact form
