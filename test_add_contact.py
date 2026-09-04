@@ -3,8 +3,8 @@ import unittest
 
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
-from contact import Contact
 
+from contact import Contact
 
 
 class TestAddContact(unittest.TestCase):
@@ -13,10 +13,8 @@ class TestAddContact(unittest.TestCase):
         self.wd.implicitly_wait(30)
 
     def test_add_contact(self):
-        wd = self.wd
-        self.open_home_page(wd)
-        self.login(wd)
-        self.create_contact(wd, Contact(firstname="Ivan", middlename="Ivanovish", lastname="Ivanov", title="ada",
+        self.login(username="admin", password="secret")
+        self.create_contact(Contact(firstname="Ivan", middlename="Ivanovish", lastname="Ivanov", title="ada",
                                         company="New",
                                         nickname="Brave", address="address address address",
                                         home_phone="+7 11111", mobile_phone="+7 2222", work_phone="+7 33333",
@@ -25,20 +23,23 @@ class TestAddContact(unittest.TestCase):
                                         homepage="https://dzen.ru/", bday="27", bmonth="December", byear="2000",
                                         aday="25",
                                         amonth="December", ayear="2021"))
-        self.returt_to_home_page(wd)
-        self.logout(wd)
+        self.logout()
 
-    def open_home_page(self, wd):
+    def open_home_page(self):
+        wd = self.wd
         wd.get("http://localhost/addressbook/")
 
-    def login(self, wd):
+    def login(self, username, password):
+        wd = self.wd
+        self.open_home_page()
         wd.find_element_by_name("user").click()
-        wd.find_element_by_name("user").send_keys("admin")
+        wd.find_element_by_name("user").send_keys(username)
         wd.find_element_by_name("pass").click()
-        wd.find_element_by_name("pass").send_keys("secret")
+        wd.find_element_by_name("pass").send_keys(password)
         wd.find_element_by_xpath("//input[@value='Login']").click()
 
-    def create_contact(self, wd, contact):
+    def create_contact(self, contact):
+        wd = self.wd
         # init contact creation
         wd.find_element_by_link_text("add new").click()
         # fill contact form
@@ -98,11 +99,15 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_name("ayear").send_keys(contact.ayear)
         # submit  contact creation
         wd.find_element_by_xpath('//input[@name="submit"]').click()
+        self.returt_to_home_page()
 
-    def returt_to_home_page(self, wd):
+
+    def returt_to_home_page(self):
+        wd = self.wd
         wd.find_element_by_link_text("home").click()
 
-    def logout(self, wd):
+    def logout(self):
+        wd = self.wd
         wd.find_element_by_link_text("Logout").click()
 
     def tearDown(self):
