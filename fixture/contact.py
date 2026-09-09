@@ -68,6 +68,17 @@ class ContactHelper:
         wd.find_element_by_xpath('//input[@name="submit"]').click()
         self.returt_to_home_page()
 
+    def edit_first_contact(self, contact):
+        wd = self.app.wd
+        # open first contact
+        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        # fill contact form
+        wd.find_element_by_name("firstname").click()
+        wd.find_element_by_name("firstname").clear()
+        wd.find_element_by_name("firstname").send_keys(contact.firstname)
+        wd.find_element_by_name("update").click()
+        self.returt_to_home_page()
+
     def returt_to_home_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
