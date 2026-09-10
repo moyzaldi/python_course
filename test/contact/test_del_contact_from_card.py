@@ -12,5 +12,5 @@ def test_del_first_contact_from_card(app):
                                homepage="https://dzen.ru/", bday="27", bmonth="December", byear="2000",
                                aday="25",
                                amonth="December", ayear="2021"))
-    app.contact.del_first_contact_from_card()
+    app.contact.del_first_contact_from_card_edit()
     app.session.logout()
