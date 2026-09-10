@@ -82,7 +82,16 @@ class ContactHelper:
         wd.find_element(By.NAME,"firstname").click()
         wd.find_element(By.NAME,"firstname").clear()
         wd.find_element(By.NAME,"firstname").send_keys(contact.firstname)
+        # update contact form
         wd.find_element(By.NAME,"update").click()
+        self.return_to_home_page()
+
+    def del_first_contact_from_card(self):
+        wd = self.app.wd
+        # choosing first contact
+        self.choosing_first_contact()
+        # delete contact
+        wd.find_element(By.NAME, "delete").click()
         self.return_to_home_page()
 
     def return_to_home_page(self):
