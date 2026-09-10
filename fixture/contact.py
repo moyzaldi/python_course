@@ -69,15 +69,13 @@ class ContactHelper:
         wd.find_element(By.XPATH,'//input[@name="submit"]').click()
         self.return_to_home_page()
 
-    def choosing_first_contact(self):
+    def select_first_icon_edit_contact(self):
         wd = self.app.wd
-        # open first contact
         wd.find_element(By.XPATH,"//img[@alt='Edit']").click()
 
     def edit_first_contact(self, contact):
         wd = self.app.wd
-        # choosing first contact
-        self.choosing_first_contact()
+        self.select_first_icon_edit_contact()
         # fill contact form
         wd.find_element(By.NAME,"firstname").click()
         wd.find_element(By.NAME,"firstname").clear()
@@ -86,11 +84,18 @@ class ContactHelper:
         wd.find_element(By.NAME,"update").click()
         self.return_to_home_page()
 
-    def del_first_contact_from_card(self):
+    def del_first_contact_from_card_edit(self):
         wd = self.app.wd
-        # choosing first contact
-        self.choosing_first_contact()
+        self.select_first_icon_edit_contact()
         # delete contact
+        wd.find_element(By.NAME, "delete").click()
+        self.return_to_home_page()
+
+    def del_first_contact_from_list(self):
+        wd = self.app.wd
+        # select first contact
+        wd.find_element(By.NAME, "selected[]").click()
+        # submit deletion
         wd.find_element(By.NAME, "delete").click()
         self.return_to_home_page()
 
