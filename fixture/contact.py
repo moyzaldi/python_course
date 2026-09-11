@@ -10,76 +10,56 @@ class ContactHelper:
         wd = self.app.wd
         # init contact creation
         wd.find_element(By.LINK_TEXT,"add new").click()
-        # fill contact form
-        wd.find_element(By.NAME,"firstname").click()
-        wd.find_element(By.NAME,"firstname").clear()
-        wd.find_element(By.NAME,"firstname").send_keys(contact.firstname)
-        wd.find_element(By.NAME,"middlename").click()
-        wd.find_element(By.NAME,"middlename").clear()
-        wd.find_element(By.NAME,"middlename").send_keys(contact.middlename)
-        wd.find_element(By.NAME,"lastname").click()
-        wd.find_element(By.NAME,"lastname").clear()
-        wd.find_element(By.NAME,"lastname").send_keys(contact.lastname)
-        wd.find_element(By.NAME,"nickname").click()
-        wd.find_element(By.NAME,"nickname").clear()
-        wd.find_element(By.NAME,"nickname").send_keys(contact.nickname)
-        wd.find_element(By.NAME,"title").click()
-        wd.find_element(By.NAME,"title").clear()
-        wd.find_element(By.NAME,"title").send_keys(contact.title)
-        wd.find_element(By.NAME,"company").click()
-        wd.find_element(By.NAME,"company").clear()
-        wd.find_element(By.NAME,"company").send_keys(contact.company)
-        wd.find_element(By.NAME,"address").click()
-        wd.find_element(By.NAME,"address").clear()
-        wd.find_element(By.NAME,"address").send_keys(contact.address)
-        wd.find_element(By.NAME,"home").click()
-        wd.find_element(By.NAME,"home").clear()
-        wd.find_element(By.NAME,"home").send_keys(contact.home_phone)
-        wd.find_element(By.NAME,"mobile").click()
-        wd.find_element(By.NAME,"mobile").clear()
-        wd.find_element(By.NAME,"mobile").send_keys(contact.mobile_phone)
-        wd.find_element(By.NAME,"work").click()
-        wd.find_element(By.NAME,"work").clear()
-        wd.find_element(By.NAME,"work").send_keys(contact.work_phone)
-        wd.find_element(By.NAME,"email").click()
-        wd.find_element(By.NAME,"email").clear()
-        wd.find_element(By.NAME,"email").send_keys(contact.email1)
-        wd.find_element(By.NAME,"email2").click()
-        wd.find_element(By.NAME,"email2").clear()
-        wd.find_element(By.NAME,"email2").send_keys(contact.email2)
-        wd.find_element(By.NAME,"email3").click()
-        wd.find_element(By.NAME,"email3").clear()
-        wd.find_element(By.NAME,"email3").send_keys(contact.email3)
-        wd.find_element(By.NAME,"homepage").click()
-        wd.find_element(By.NAME,"homepage").clear()
-        wd.find_element(By.NAME,"homepage").send_keys(contact.homepage)
-        #даты
-        Select(wd.find_element(By.NAME, "bday")).select_by_visible_text(contact.bday)
-        Select(wd.find_element(By.NAME, "bmonth")).select_by_visible_text(contact.bmonth)
-        wd.find_element(By.NAME, "byear").click()
-        wd.find_element(By.NAME, "byear").clear()
-        wd.find_element(By.NAME, "byear").send_keys(contact.byear)
-
-        Select(wd.find_element(By.NAME, "aday")).select_by_visible_text(contact.aday)
-        Select(wd.find_element(By.NAME, "amonth")).select_by_visible_text(contact.amonth)
-        wd.find_element(By.NAME, "ayear").click()
-        wd.find_element(By.NAME, "ayear").clear()
-        wd.find_element(By.NAME, "ayear").send_keys(contact.ayear)
+        self.fill_contact_form(contact)
         # submit  contact creation
         wd.find_element(By.XPATH,'//input[@name="submit"]').click()
         self.return_to_home_page()
+
+    def fill_contact_form(self, contact):
+        wd = self.app.wd
+        self.change_contact_field_value("firstname", contact.firstname)
+        self.change_contact_field_value("middlename", contact.middlename)
+        self.change_contact_field_value("lastname", contact.lastname)
+        self.change_contact_field_value("nickname", contact.nickname)
+        self.change_contact_field_value("title", contact.title)
+        self.change_contact_field_value("company", contact.company)
+        self.change_contact_field_value("address", contact.address)
+        self.change_contact_field_value("home", contact.home_phone)
+        self.change_contact_field_value("mobile", contact.mobile_phone)
+        self.change_contact_field_value("work", contact.work_phone)
+        self.change_contact_field_value("email", contact.email)
+        self.change_contact_field_value("email2", contact.email2)
+        self.change_contact_field_value("email3", contact.email3)
+        self.change_contact_field_value("homepage", contact.homepage)
+        self.select_contact_dropdown_value("bday",contact.bday)
+        self.select_contact_dropdown_value("bmonth",contact.bmonth)
+        self.change_contact_field_value("byear", contact.byear)
+        self.select_contact_dropdown_value("aday", contact.bday)
+        self.select_contact_dropdown_value("amonth", contact.bmonth)
+        self.change_contact_field_value("ayear", contact.byear)
+
+
+    def select_contact_dropdown_value(self, field_name, text):
+        wd = self.app.wd
+        if text is not None:
+            Select(wd.find_element(By.NAME, field_name)).select_by_visible_text(text)
+
+    def change_contact_field_value(self, field_name, text):
+        wd = self.app.wd
+        if text is not None:
+            wd.find_element(By.NAME, field_name).click()
+            wd.find_element(By.NAME, field_name).clear()
+            wd.find_element(By.NAME, field_name).send_keys(text)
 
     def select_first_icon_edit_contact(self):
         wd = self.app.wd
         wd.find_element(By.XPATH,"//img[@alt='Edit']").click()
 
-    def edit_first_contact(self, contact):
+    def modify_first_contact(self, new_contact_data):
         wd = self.app.wd
         self.select_first_icon_edit_contact()
         # fill contact form
-        wd.find_element(By.NAME,"firstname").click()
-        wd.find_element(By.NAME,"firstname").clear()
-        wd.find_element(By.NAME,"firstname").send_keys(contact.firstname)
+        self.fill_contact_form(new_contact_data)
         # update contact form
         wd.find_element(By.NAME,"update").click()
         self.return_to_home_page()
