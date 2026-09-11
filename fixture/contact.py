@@ -101,7 +101,7 @@ class ContactHelper:
 
     def return_to_home_page(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("home").click()
+        wd.find_element_by_link_text("home page").click()
 
 
 
