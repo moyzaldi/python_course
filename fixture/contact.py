@@ -83,5 +83,9 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_link_text("home page").click()
 
+    def open_contact_page(self):
+        wd = self.app.wd
+        wd.get("http://localhost/addressbook/")
+
 
 
