@@ -12,6 +12,6 @@ def test_modify_contact_firstname(app):
                                homepage="https://dzen.ru/", bday="27", bmonth="December", byear="2000",
                                aday="25",
                                amonth="December", ayear="2021"))
-    app.contact.open_contact_page()
+    app.contact.ensure_contact_page()
     app.contact.modify_first_contact(Contact(firstname="Petr"))
     app.session.logout()

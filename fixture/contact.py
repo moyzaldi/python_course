@@ -1,5 +1,5 @@
-from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
 
 
 class ContactHelper:
@@ -81,11 +81,9 @@ class ContactHelper:
 
     def return_to_home_page(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("home page").click()
+        wd.find_element(By.LINK_TEXT, "home page").click()
 
-    def open_contact_page(self):
-        wd = self.app.wd
-        wd.get("http://localhost/addressbook/")
-
-
-
+    def ensure_contact_page(self):
+        url = self.app.wd.current_url
+        if "/addressbook" not in url:
+            self.app.wd.get("http://localhost/addressbook/")
