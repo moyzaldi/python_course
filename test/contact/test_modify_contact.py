@@ -2,7 +2,8 @@ from model.contact import Contact
 
 
 def test_modify_contact_firstname(app):
-    app.contact.create(Contact(firstname="Ivan", middlename="Ivanovish", lastname="Ivanov", title="ada",
+    if app.contact.count() == 0:
+        app.contact.create(Contact(firstname="Ivan", middlename="Ivanovish", lastname="Ivanov", title="ada",
                                company="New",
                                nickname="Brave", address="address address address",
                                home_phone="+7 11111", mobile_phone="+7 2222", work_phone="+7 33333",
