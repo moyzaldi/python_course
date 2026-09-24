@@ -87,3 +87,11 @@ class ContactHelper:
         url = self.app.wd.current_url
         if "/addressbook" not in url:
             self.app.wd.get("http://localhost/addressbook/")
+
+    def count(self):
+        wd = self.app.wd
+        self.ensure_contact_page()
+        return len(wd.find_elements(By.XPATH, "//img[@alt='Edit']"))
+
+
+
